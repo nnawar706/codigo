@@ -13,6 +13,7 @@ export default function SignIn() {
     const handleSubmit = async () => {
         if (secret === "") {
             secretRef.current?.focus()
+            return
         }
 
         
@@ -20,6 +21,7 @@ export default function SignIn() {
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center">
+            
             <div className="flex flex-col gap-8 items-center w-full md:w-[400px] py-8">
                 <Image src="/assets/logo.svg" width="150" height="150" alt="logo"/>
 
