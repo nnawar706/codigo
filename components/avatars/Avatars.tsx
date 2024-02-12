@@ -1,33 +1,36 @@
-import { useOthers, useSelf } from "@/liveblocks.config";
-import styles from "./index.module.css";
-import {generateRandomName} from "@/utils/helper";
+import { useOthers, useSelf } from "@/liveblocks.config"
+import styles from "./index.module.css"
+import {generateRandomName} from "@/utils/helper"
+import { useMemo } from "react"
 
 export function Avatars() {
-    const users = useOthers();
-    const currentUser = useSelf();
+    const users = useOthers()
+    const currentUser = useSelf()
 
     const hasMoreUsers = users.length > 3
 
-    return (
-        <div className={styles.avatars}>
-            {currentUser && (
-                <div className="relative ml-8 first:ml-0">
-                    <Avatar
-                        name="You"
-                    />
-                </div>
-            )}
+    const memoizedUsers = useMemo(() => {
+        return (
+            <div className={styles.avatars}>
+                {currentUser && (
+                    <div className="relative ml-8 first:ml-0">
+                        <Avatar name="You"/>
+                    </div>
+                )}
 
-            {users.slice(0,3).map(({ connectionId, info }) => {
-                return (
-                    <Avatar key={connectionId} name={generateRandomName()} />
-                );
-            })}
+                {users.slice(0,3).map(({ connectionId, info }) => {
+                    return (
+                        <Avatar key={connectionId} name={generateRandomName()} />
+                    );
+                })}
 
-            {hasMoreUsers && <div>+{users.length - 3} </div>}
+                {hasMoreUsers && <div>+{users.length - 3} </div>}
 
-        </div>
-    );
+            </div>
+        )
+    }, [users.length])
+
+    return memoizedUsers
 }
 
 export function Avatar({ name }: { name: string }) {

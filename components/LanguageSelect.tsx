@@ -1,4 +1,4 @@
-const LanguageSelect = () => {
+const LanguageSelect = ({ onSelectChange }) => {
     return (
         <div>select language</div>
     )

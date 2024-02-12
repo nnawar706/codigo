@@ -1,8 +1,9 @@
 import { createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
+import LiveblocksProvider from "@liveblocks/yjs";
   
 const client = createClient({
-  publicApiKey: "",
+  publicApiKey: "pk_dev_nDqCe9tlN9IpE-b_rPBho7-g10hIEMG-Z9s8bzQMdheZ0As2QIwPxHPtClWYn0gP",
   // authEndpoint: "/api/auth",
   // throttle: 100,
 });
@@ -27,8 +28,12 @@ type Storage = {
 // provided by your own custom auth back end (if used). Useful for data that
 // will not change during a session, like a user's name or avatar.
 type UserMeta = {
-  // id?: string,  // Accessible through `user.id`
-  // info?: Json,  // Accessible through `user.info`
+  id: string; // Accessible through `user.id`
+  info: {
+    name: string;
+    color: string;
+    picture: string;
+  };
 };
 
 // Optionally, the type of custom events broadcast and listened to in this
@@ -38,6 +43,12 @@ type RoomEvent = {
   // ...
 };
 
+export type UserAwareness = {
+    user?: UserMeta["info"];
+};
+
+export type AwarenessList = [number, UserAwareness][];
+
 // Optionally, when using Comments, ThreadMetadata represents metadata on
 // each thread. Can only contain booleans, strings, and numbers.
 export type ThreadMetadata = {
@@ -45,6 +56,13 @@ export type ThreadMetadata = {
   // quote: string;
   // time: number;
 };
+
+export type TypedLiveblocksProvider = LiveblocksProvider<
+  Presence,
+  Storage,
+  UserMeta,
+  RoomEvent
+>;
 
 export const {
   suspense: {

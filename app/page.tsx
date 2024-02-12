@@ -1,43 +1,68 @@
 "use client"
 
 import { PersonIcon } from "@radix-ui/react-icons";
-import { Button, TextField } from "@radix-ui/themes";
-import Cookies from "universal-cookie"
+import { Box, Button, Flex, Grid, TextField } from "@radix-ui/themes";
+// import Cookies from "universal-cookie"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {useState} from "react";
+import {useState} from "react"
+
 import {defaultCode} from "@/constants/defaultCode";
 import {languageOptions} from "@/constants/languages";
 import {Language} from "@/types/General";
+import Topbar from "@/components/Topbar";
+import { Room } from "./Room";
+import CodeEditor from "@/components/CodeEditor";
+import { monacoThemes } from "@/constants/editorThemes";
+import LanguageSelect from "@/components/LanguageSelect";
 
-const cookies = new Cookies()
-const authToken = cookies.get('token')
+// const cookies = new Cookies()
+// const authToken = cookies.get('auth_token')
 
 export default function Home() {
   const { push } = useRouter()
   const [code, setCode] = useState<string>(defaultCode)
-  const [theme, setTheme] = useState<string>("cobalt")
+  const [theme, setTheme] = useState<string>("vs-dark")
   const [language, setLanguage] = useState<Language>(languageOptions[0])
   const [userInput, setUserInput] = useState<string>("")
   const [output, setOutput] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   
-  if (!authToken) push('/auth/sign-in')
+  // if (!authToken) push('/auth/sign-in')
   
+  const onCodeChange = (action: string, data: string) => {
+    switch (action) {
+      case "code":
+        setCode(data)
+        break
+    
+      default:
+        console.log('case not supported: ', action)
+    }
+  }
+
+  const onLanguageChange = (lang) => {
+    console.log('selected lang', lang)
+    setLanguage(lang)
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <div className="flex flex-col gap-8 items-center w-full md:w-[400px] py-8">
-        <Image src="/assets/logo.svg" width="150" height="150" alt="logo"/>
-
-        <TextField.Root className="w-full">
-          <TextField.Slot>
-            <PersonIcon height="16" width="16" />
-          </TextField.Slot>
-          <TextField.Input placeholder="Secret Code..." />
-        </TextField.Root>
-
-        <Button className="w-full" color="gray" variant="solid" highContrast>Proceed</Button>
-      </div>
+    <main className="overflow-hidden h-screen">
+      <Room>
+        <Topbar/>
+        <Grid columns={{ sm:"1", md:"2" }} gap="3" className="px-20 py-3">
+          <Box>
+            <Flex justify="between" align="center">
+              <LanguageSelect onSelectChange={onLanguageChange}/>
+            </Flex>
+            <CodeEditor 
+            onChange={onCodeChange} 
+            language={undefined} 
+            code={code} 
+            theme={theme}/>
+          </Box>
+        </Grid>
+      </Room>
     </main>
   );
 }
