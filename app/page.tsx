@@ -5,12 +5,22 @@ import { Button, TextField } from "@radix-ui/themes";
 import Cookies from "universal-cookie"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {useState} from "react";
+import {defaultCode} from "@/constants/defaultCode";
+import {languageOptions} from "@/constants/languages";
+import {Language} from "@/types/General";
 
 const cookies = new Cookies()
 const authToken = cookies.get('token')
 
 export default function Home() {
   const { push } = useRouter()
+  const [code, setCode] = useState<string>(defaultCode)
+  const [theme, setTheme] = useState<string>("cobalt")
+  const [language, setLanguage] = useState<Language>(languageOptions[0])
+  const [userInput, setUserInput] = useState<string>("")
+  const [output, setOutput] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
   
   if (!authToken) push('/auth/sign-in')
   

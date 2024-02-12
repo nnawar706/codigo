@@ -1,4 +1,6 @@
-export const languageOptions = [
+import {Language} from "@/types/General";
+
+export const languageOptions: Language[] = [
     {
         id: 63,
         name: "JavaScript (Node.js 12.14.0)",
