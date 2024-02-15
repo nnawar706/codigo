@@ -1,7 +1,5 @@
 "use client"
 
-import { InfoCircledIcon, PersonIcon } from "@radix-ui/react-icons"
-import { Button, Callout, TextField } from "@radix-ui/themes"
 import Image from "next/image"
 import Cookies from "universal-cookie"
 import { useRef, useState } from "react"
@@ -39,27 +37,9 @@ export default function SignIn() {
             <div className="flex flex-col gap-8 items-center w-full md:w-[400px] py-8">
                 <Image src="/assets/logo.svg" width="150" height="150" alt="logo"/>
 
-                {error && 
-                <Callout.Root color="red" role="alert" className="relative w-full">
-                    <Callout.Icon>
-                        <InfoCircledIcon />
-                    </Callout.Icon>
-                    <Callout.Text>{error}</Callout.Text>
-                </Callout.Root>}
-
-                <TextField.Root className="w-full">
-                    <TextField.Slot>
-                        <PersonIcon height="16" width="16" />
-                    </TextField.Slot>
-                    <TextField.Input type="password" 
-                    ref={secretRef} value={secret} 
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSecret(e.target.value)} placeholder="Secret Code..." />
-                </TextField.Root>
-
-                <Button 
+                <button 
                 onClick={handleSubmit}
-                className="w-full cursor-pointer" color="gray" variant="solid" 
-                highContrast>Proceed</Button>
+                className="w-full cursor-pointer">Proceed</button>
             </div>
         </main>
     )

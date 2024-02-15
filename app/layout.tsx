@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Theme } from "@radix-ui/themes";
+import { ThemeProvider } from "./layouts/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,11 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head></head>
       <body className={inter.className}>
-        <main className="bg-primary-black">
-          {children}
-        </main>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <main className="bg-primary-black">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

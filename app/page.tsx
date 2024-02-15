@@ -1,7 +1,5 @@
 "use client"
 
-import { PersonIcon } from "@radix-ui/react-icons";
-import { Box, Button, Flex, Grid, TextField } from "@radix-ui/themes";
 // import Cookies from "universal-cookie"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -41,8 +39,7 @@ export default function Home() {
     }
   }
 
-  const onLanguageChange = (lang) => {
-    console.log('selected lang', lang)
+  const onLanguageChange = (lang: any) => {
     setLanguage(lang)
   }
 
@@ -50,18 +47,19 @@ export default function Home() {
     <main className="overflow-hidden h-screen">
       <Room>
         <Topbar/>
-        <Grid columns={{ sm:"1", md:"2" }} gap="3" className="px-20 py-3">
-          <Box>
-            <Flex justify="between" align="center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-20 py-3 min-h-screen">
+          <div>
+            <div className="flex justify-between items-center my-4 w-full">
               <LanguageSelect onSelectChange={onLanguageChange}/>
-            </Flex>
+            </div>
             <CodeEditor 
-            onChange={onCodeChange} 
-            language={undefined} 
-            code={code} 
-            theme={theme}/>
-          </Box>
-        </Grid>
+              onChange={onCodeChange} 
+              language={undefined} 
+              code={code} 
+              theme={theme}/>
+          </div>
+          <div></div>
+        </div>
       </Room>
     </main>
   );
