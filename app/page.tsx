@@ -13,6 +13,8 @@ import { Room } from "./Room";
 import CodeEditor from "@/components/CodeEditor";
 import { monacoThemes } from "@/constants/editorThemes";
 import LanguageSelect from "@/components/LanguageSelect";
+import UserInput from "@/components/UserInput";
+import Output from "@/components/Output";
 
 // const cookies = new Cookies()
 // const authToken = cookies.get('auth_token')
@@ -44,7 +46,7 @@ export default function Home() {
   }
 
   return (
-    <main className="overflow-hidden h-screen">
+    <main className="h-screen">
       <Room>
         <Topbar/>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-20 py-3 min-h-screen">
@@ -58,7 +60,10 @@ export default function Home() {
               code={code} 
               theme={theme}/>
           </div>
-          <div></div>
+          <div className="flex flex-col justify-start items-center my-4">
+            <UserInput userInput={userInput} setUserInput={setUserInput}/>
+            <Output/>
+          </div>
         </div>
       </Room>
     </main>
