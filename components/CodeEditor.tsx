@@ -55,7 +55,7 @@ const CodeEditor = ({ onChange, language, code, theme }) => {
     }, [])
 
     return (
-        <section className="overlay rounded-md overflow-hidden w-full h-full">
+        <section className="overlay rounded-md overflow-hidden w-full">
             <Editor
                 height="65vh"
                 width="100%"

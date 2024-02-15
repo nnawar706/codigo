@@ -38,7 +38,7 @@ const Output = ({ outputInfo }) => {
     }
 
     return (
-        <div className="w-full mt-8">
+        <div className="w-full">
             <p className="mb-3 text-sm font-medium">Output:</p>
             <Card className="w-full h-60 bg-[#090f1a] rounded-md text-white font-normal text-sm overflow-y-auto">
                 {outputInfo ? getOutput() : null}

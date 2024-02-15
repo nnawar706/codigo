@@ -15,6 +15,7 @@ import { monacoThemes } from "@/constants/editorThemes";
 import LanguageSelect from "@/components/LanguageSelect";
 import UserInput from "@/components/UserInput";
 import Output from "@/components/Output";
+import { Button } from "@/components/ui/button";
 
 // const cookies = new Cookies()
 // const authToken = cookies.get('auth_token')
@@ -46,10 +47,10 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen">
+    <main className="min-h-full">
       <Room>
         <Topbar/>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-20 py-3 min-h-screen">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-20 py-3">
           <div>
             <div className="flex justify-between items-center my-4 w-full">
               <LanguageSelect onSelectChange={onLanguageChange}/>
@@ -62,6 +63,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col justify-start items-center my-4">
             <UserInput userInput={userInput} setUserInput={setUserInput}/>
+            <Button className="w-full my-8">Compile & Execute</Button>
             <Output/>
           </div>
         </div>
