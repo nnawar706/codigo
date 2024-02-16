@@ -78,7 +78,9 @@ export default function Home() {
               {loading ? "Processing..." : "Compile & Execute"}
             </Button>
             <Output outputInfo={output!}/>
-            {output && <OutputDetail detail={output}/>}
+            {/* {output &&  */}
+            <OutputDetail detail={output}/>
+            {/* } */}
           </div>
         </div>
       </Room>

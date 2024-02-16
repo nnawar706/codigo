@@ -2,7 +2,7 @@ import { OutputInfo } from '@/types/General'
 
 const OutputDetail = ({ detail }: { detail: OutputInfo }) => {
     return (
-        <div className="mt-8 flex flex-col space-y-3">
+        <div className="mt-8 flex justify-between">
             <p className="text-sm">
                 Status: {" "}
                 <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
