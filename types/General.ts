@@ -9,3 +9,15 @@ export interface Language {
     label: string;
     value: string;
 }
+
+export interface OutputInfo {
+    status?: {
+        id: number;
+        description: string;
+    }
+    compile_output: string;
+    memory: string;
+    time: string;
+    stdout: string;
+    stderr: string;
+}

@@ -1,32 +1,30 @@
 "use client"
 
 // import Cookies from "universal-cookie"
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {useState} from "react"
 
-import {defaultCode} from "@/constants/defaultCode";
 import {languageOptions} from "@/constants/languages";
-import {Language} from "@/types/General";
+import {OutputInfo} from "@/types/General";
 import Topbar from "@/components/Topbar";
 import { Room } from "./Room";
 import CodeEditor from "@/components/CodeEditor";
-import { monacoThemes } from "@/constants/editorThemes";
 import LanguageSelect from "@/components/LanguageSelect";
 import UserInput from "@/components/UserInput";
 import Output from "@/components/Output";
 import { Button } from "@/components/ui/button";
+import OutputDetail from "@/components/OutputDetail";
 
 // const cookies = new Cookies()
 // const authToken = cookies.get('auth_token')
 
 export default function Home() {
   const { push } = useRouter()
-  const [code, setCode] = useState<string>(defaultCode)
+  const [code, setCode] = useState<string>("")
   const [theme, setTheme] = useState<string>("vs-dark")
-  const [language, setLanguage] = useState<Language>(languageOptions[0])
+  const [language, setLanguage] = useState<number>(languageOptions[0].id)
   const [userInput, setUserInput] = useState<string>("")
-  const [output, setOutput] = useState<string | null>(null)
+  const [output, setOutput] = useState<OutputInfo | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   
   // if (!authToken) push('/auth/sign-in')
@@ -42,8 +40,21 @@ export default function Home() {
     }
   }
 
-  const onLanguageChange = (lang: any) => {
-    setLanguage(lang)
+  const onLanguageChange = (languageId: string) => {
+
+    console.log(parseInt(languageId))
+    setLanguage(parseInt(languageId))
+  }
+
+  const handleCompile = () => {
+    setLoading(true)
+
+    const payload = {
+      language_id: language,
+      // encode source code in Base64
+      source_code: btoa(code),
+      stdin: btoa(userInput)
+    }
   }
 
   return (
@@ -63,8 +74,11 @@ export default function Home() {
           </div>
           <div className="flex flex-col justify-start items-center my-4">
             <UserInput userInput={userInput} setUserInput={setUserInput}/>
-            <Button className="w-full my-8">Compile & Execute</Button>
-            <Output/>
+            <Button className="w-full my-8" disabled={code === ""} onClick={handleCompile}>
+              {loading ? "Processing..." : "Compile & Execute"}
+            </Button>
+            <Output outputInfo={output!}/>
+            {output && <OutputDetail detail={output}/>}
           </div>
         </div>
       </Room>

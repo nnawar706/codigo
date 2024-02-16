@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 
 const LanguageSelect = ({ onSelectChange }: { onSelectChange: any }) => {
     return (
-        <Select defaultValue="javascript" 
+        <Select defaultValue="63" 
         onValueChange={(selected) => onSelectChange(selected)}>
             <SelectTrigger>
                 <SelectValue placeholder="Select a Language">
@@ -16,7 +16,11 @@ const LanguageSelect = ({ onSelectChange }: { onSelectChange: any }) => {
                 <SelectGroup>
                     <SelectLabel>Language</SelectLabel>
                     {languageOptions.map((language: Language) => {
-                        return <SelectItem key={language.id} value={language.value}>{language.name}</SelectItem>
+                        return <SelectItem 
+                            key={language.id} 
+                            value={language.id.toString()}>
+                                {language.name}
+                            </SelectItem>
                     })}
                 </SelectGroup>
             </SelectContent>

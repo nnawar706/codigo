@@ -1,6 +1,7 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { OutputInfo } from "@/types/General"
+import { Card } from "./ui/card"
 
-const Output = ({ outputInfo }) => {
+const Output = ({ outputInfo }: { outputInfo: OutputInfo }) => {
 
     const getOutput = () => {
         const status = outputInfo?.status?.id
@@ -41,7 +42,7 @@ const Output = ({ outputInfo }) => {
         <div className="w-full">
             <p className="mb-3 text-sm font-medium">Output:</p>
             <Card className="w-full h-60 bg-[#090f1a] rounded-md text-white font-normal text-sm overflow-y-auto">
-                {outputInfo ? getOutput() : null}
+                {outputInfo ? <>{getOutput()}</> : null}
             </Card>
         </div>
     )
